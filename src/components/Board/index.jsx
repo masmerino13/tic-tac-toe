@@ -8,7 +8,17 @@ import Squares from '../Squares';
 class Board extends Component {
   state = {
     size: 3,
-    squares: Array(9).fill(null) // 3x3
+    squares: Array(9).fill(null) // 3X3
+  }
+
+  handleSizeChange = (e) => {
+    const { value } = e.target;
+    const nSquares = value * value;
+
+    this.setState({
+      size: value,
+      squares: Array(nSquares).fill(null) // sizeXsize
+    });
   }
 
   render() {
@@ -17,7 +27,7 @@ class Board extends Component {
     return (
       <BoardWrapper>
         <Scores scoreX={ 5 } />
-        <Config defaultSize={ size } />
+        <Config defaultSize={ size } onSizeChange={ this.handleSizeChange } />
         <Squares columns={ size } squares={ squares } onClicked={() => console.log('clic')} />
       </BoardWrapper>
     )

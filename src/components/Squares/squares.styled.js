@@ -6,12 +6,12 @@ const SquaresWrapper = styled.div`
   background: #ffffff;
   border: 1px solid #f3f3f3;
   padding: 0.3rem;
+  flex-direction: column;
 
   .squares-row {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content : space-between;
-    flex-basis: ${ props => props.flexBasis }%;
   }
 `;
 
@@ -19,9 +19,9 @@ const SquareWrapper = styled.span`
   padding: 2px;
   border: 1px solid #f3f3f3;
   font-size: 3rem;
-  padding-bottom: 25%;
-  padding-top: 25%;
+  padding-bottom: 10%;
   text-align: center;
+  flex-basis: ${ props => props.flexBasis }%;
 `;
 
 export {

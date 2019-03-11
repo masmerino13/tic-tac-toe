@@ -21,10 +21,10 @@ class Board extends Component {
     }
   }
 
-  checkWinner = () => {
+  checkWinner = isFinished => {
     const { size, squares } = this.state;
     const winPathX = 'xxx';
-    const winPath0 = '000';
+    const winPath0 = 'zerozerozero';
     const horizontal = chain(squares)
       .chunk(size)
       .map(group => group.join(''))
@@ -37,16 +37,38 @@ class Board extends Component {
         this.setWinner('zero');
       }
     });
+
+    if (isFinished) {
+      this.setWinner('draw');
+    }
   }
 
   setWinner(winner) {
-    const { scores } = this.state;
+    const { scores, whoWon } = this.state;
+
+    if (whoWon) return;
+
     scores[winner] += 1;
+
+    console.log('winner', winner);
+    console.log('whoWon', whoWon);
 
     this.setState({
       playing: false,
       whoWon: winner,
       scores
+    });
+
+    //this.restart();
+  }
+
+  restart() {
+    const { size } = this.state;
+    const nSquares = size * size;
+
+    this.setState({
+      squares: Array(nSquares).fill(null),
+      whoWon: null
     });
   }
 
@@ -61,28 +83,31 @@ class Board extends Component {
   }
 
   handlePlayerTurn = (square) => {
-    const { whoIsNext, squares, steps } = this.state;
+    const { whoIsNext, squares, steps, whoWon } = this.state;
     const stepsCounter = steps + 1;
 
     squares[square] = whoIsNext;
-    
-    // -- calculate the winner
-    this.checkWinner();
-
-    if(squares.length === squares.filter(square => square).length)
-    {
-      this.setWinner('draw');
-    }
-    // --
 
     this.setState({
       whoIsNext: whoIsNext === 'x' ? 'zero' : 'x',
       squares,
       steps: stepsCounter
     });
+
+    // -- calculate the winner
+    if(squares.length === squares.filter(square => square).length && !whoWon)
+    {
+      this.checkWinner(true);
+      return;
+    }
+
+    this.checkWinner();
+    // --
   }
 
   handleGameStart = () => {
+    this.restart();
+
     this.setState({
       playing: true
     });

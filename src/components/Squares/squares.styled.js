@@ -18,8 +18,8 @@ const SquaresWrapper = styled.div`
 const SquareWrapper = styled.span`
   padding: 2px;
   border: 1px solid #f3f3f3;
-  font-size: 3rem;
-  padding-bottom: 10%;
+  font-size: 2rem;
+  min-height: 3rem;
   text-align: center;
   flex-basis: ${ props => props.flexBasis }%;
 `;

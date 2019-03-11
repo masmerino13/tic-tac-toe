@@ -9,7 +9,8 @@ class Board extends Component {
   state = {
     size: 3,
     squares: Array(9).fill(null), // 3X3
-    whoIsNext: 'x' // X start by default
+    whoIsNext: 'x', // X start by default
+    playing: false
   }
 
   handleSizeChange = (e) => {
@@ -33,14 +34,34 @@ class Board extends Component {
     });
   }
 
+  handleGameStart = () => {
+    this.setState({
+      playing: true
+    });
+  }
+
   render() {
-    const { size, squares, whoIsNext } = this.state;
+    const {
+      size,
+      squares,
+      whoIsNext,
+      playing
+    } = this.state;
 
     return (
       <BoardWrapper>
-        <Scores whoIsNext={ whoIsNext } scoreX={ 5 } />
-        <Config defaultSize={ size } onSizeChange={ this.handleSizeChange } />
-        <Squares columns={ size } squares={ squares } onClicked={this.handlePlayerTurn} />
+        <Scores
+          whoIsNext={ whoIsNext }
+          scoreX={ 5 } />
+        <Config
+          defaultSize={ size }
+          onSizeChange={ this.handleSizeChange }
+          onStart={ this.handleGameStart }
+          readonly={ playing } />
+        <Squares
+          columns={ size }
+          squares={ squares }
+          onClicked={this.handlePlayerTurn} />
       </BoardWrapper>
     )
   }

@@ -9,7 +9,7 @@ const Square = ({ index, flexBasis, value, onClick }) => {
   );
 }
 
-const Squares = ({ columns, squares, onClicked }) => {
+const Squares = ({ columns, squares, readonly, onClicked }) => {
   const flexBasis = 100/columns;
   const groups = chain(squares)
     .map((v, i) => i)
@@ -17,7 +17,7 @@ const Squares = ({ columns, squares, onClicked }) => {
     .value();
 
   return (
-    <SquaresWrapper flexBasis={ flexBasis }>
+    <SquaresWrapper flexBasis={ flexBasis } >
       {
         groups.map((value, key) => (
           <div key={key} className="squares-row">
@@ -28,7 +28,7 @@ const Squares = ({ columns, squares, onClicked }) => {
                   index={ value }
                   flexBasis={ flexBasis }
                   value={ squares[value] }
-                  onClick={ onClicked } />
+                  onClick={ readonly ? () => { return } : onClicked } />
               ))
             }
           </div>

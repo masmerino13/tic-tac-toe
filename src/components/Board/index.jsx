@@ -10,7 +10,7 @@ class Board extends Component {
     size: 3,
     squares: Array(9).fill(null), // 3X3
     whoIsNext: 'x', // X start by default
-    playing: false
+    steps: 0 // default
   }
 
   handleSizeChange = (e) => {
@@ -24,7 +24,8 @@ class Board extends Component {
   }
 
   handlePlayerTurn = (square) => {
-    const { whoIsNext, squares } = this.state;
+    const { whoIsNext, squares, steps } = this.state;
+    const stepsCounter = steps + 1;
 
     squares[square] = whoIsNext;
 
@@ -61,7 +62,8 @@ class Board extends Component {
         <Squares
           columns={ size }
           squares={ squares }
-          onClicked={this.handlePlayerTurn} />
+          readonly={ !playing }
+          onClicked={ this.handlePlayerTurn } />
       </BoardWrapper>
     )
   }

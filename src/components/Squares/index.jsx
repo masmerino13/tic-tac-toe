@@ -3,9 +3,9 @@ import { chain } from 'lodash';
 
 import { SquaresWrapper, SquareWrapper } from './squares.styled';
 
-const Square = ({ flexBasis }) => {
+const Square = ({ index, flexBasis, onClick }) => {
   return (
-    <SquareWrapper flexBasis={flexBasis}></SquareWrapper>
+    <SquareWrapper flexBasis={flexBasis} onClick={() => onClick(index)}></SquareWrapper>
   );
 }
 
@@ -23,7 +23,7 @@ const Squares = ({ columns, squares, onClicked }) => {
           <div key={key} className="squares-row">
             {
               value.map((value, k) => (
-                <Square key={value} index={value} flexBasis={flexBasis} />
+                <Square key={ value } index={ value } flexBasis={ flexBasis } onClick={ onClicked } />
               ))
             }
           </div>

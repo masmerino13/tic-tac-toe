@@ -5,7 +5,11 @@ import { SquaresWrapper, SquareWrapper } from './squares.styled';
 
 const Square = ({ index, flexBasis, value, onClick }) => {
   return (
-    <SquareWrapper flexBasis={flexBasis} onClick={value ? null : () => onClick(index)}>{ value }</SquareWrapper>
+    <SquareWrapper
+      flexBasis={flexBasis}
+      onClick={value ? null : () => onClick(index)}> {
+        value && value === 'zero' ? '0' : value
+      }</SquareWrapper>
   );
 }
 
@@ -22,14 +26,14 @@ const Squares = ({ columns, squares, readonly, onClicked }) => {
         groups.map((value, key) => (
           <div key={key} className="squares-row">
             {
-              value.map((value, k) => (
-                <Square
-                  key={ value }
-                  index={ value }
-                  flexBasis={ flexBasis }
-                  value={ squares[value] }
-                  onClick={ readonly ? () => { return } : onClicked } />
-              ))
+              value.map((value, k) => {
+                return <Square
+                key={ value }
+                index={ value }
+                flexBasis={ flexBasis }
+                value={ squares[value] }
+                onClick={ readonly ? () => { return } : onClicked } />
+              })
             }
           </div>
         ))

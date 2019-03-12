@@ -2,7 +2,7 @@ import React from 'react';
 
 import { ScoresWrapper, ScorePlayerBox } from './scores.styled';
 
-const Scores = ({ whoIsNext, x = 0, zero = 0, draw = 0}) => {
+const Scores = ({ whoIsNext, x = 0, z = 0, draw = 0}) => {
   return (
     <ScoresWrapper>
       <ScorePlayerBox className={ `${ whoIsNext === 'x' ? 'active' : '' }` }>
@@ -13,8 +13,8 @@ const Scores = ({ whoIsNext, x = 0, zero = 0, draw = 0}) => {
         <h1>{ draw }</h1>
         <div className="label">Draw</div>
       </ScorePlayerBox>
-      <ScorePlayerBox className={ `${ whoIsNext === '0' ? 'active' : '' }` }>
-        <h1>{ zero }</h1>
+      <ScorePlayerBox className={ `${ whoIsNext === 'z' ? 'active' : '' }` }>
+        <h1>{ z }</h1>
         <div className="label">Player 0</div>
       </ScorePlayerBox>
     </ScoresWrapper>

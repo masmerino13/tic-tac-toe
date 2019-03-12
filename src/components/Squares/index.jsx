@@ -8,7 +8,7 @@ const Square = ({ index, flexBasis, value, onClick }) => {
     <SquareWrapper
       flexBasis={flexBasis}
       onClick={value ? null : () => onClick(index)}> {
-        value && value === 'zero' ? '0' : value
+        value && value === 'z' ? '0' : value
       }</SquareWrapper>
   );
 }

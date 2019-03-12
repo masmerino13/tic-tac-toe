@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { chain } from 'lodash'
 
+import { parseArrayVertically, parseArrayDiagonally } from '../utils';
 import { BoardWrapper } from './board.styled';
 import Scores from '../Scores';
 import Config from '../Config';
@@ -16,25 +17,27 @@ class Board extends Component {
     steps: 0, // default
     scores: {
       x: 0,
-      zero: 0,
+      z: 0,
       draw: 0
     }
   }
 
   checkWinner = isFinished => {
-    const { size, squares } = this.state;
-    const winPathX = 'xxx';
-    const winPath0 = 'zerozerozero';
-    const horizontal = chain(squares)
-      .chunk(size)
-      .map(group => group.join(''))
-      .value();
+    const { size, squares } = this.state,
+      winPathX = 'xxx',
+      winPath0 = 'zzz',
+      horizontal = chain(squares)
+        .chunk(size)
+        .map(group => group.join(''))
+        .value(),
+      vertical = parseArrayVertically({ array: squares, size }).map(group => group.join('')),
+      results = [].concat(horizontal).concat(vertical);
 
-    horizontal.forEach(path => {
+    results.forEach(path => {
       if (path.includes(winPathX)) {
         this.setWinner('x');
       } else if (path.includes(winPath0)) {
-        this.setWinner('zero');
+        this.setWinner('z');
       }
     });
 
@@ -89,7 +92,7 @@ class Board extends Component {
     squares[square] = whoIsNext;
 
     this.setState({
-      whoIsNext: whoIsNext === 'x' ? 'zero' : 'x',
+      whoIsNext: whoIsNext === 'x' ? 'z' : 'x',
       squares,
       steps: stepsCounter
     });

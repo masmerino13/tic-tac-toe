@@ -31,6 +31,8 @@ class Board extends Component {
         .map(group => group.join(''))
         .value(),
       vertical = parseArrayVertically({ array: squares, size }).map(group => group.join('')),
+      diagonallyTopLeft = parseArrayDiagonally({ array: horizontal }),
+      diagonallyBottomTop = parseArrayDiagonally({ array: horizontal, bottomToTop: true }),
       results = [].concat(horizontal).concat(vertical);
 
     results.forEach(path => {

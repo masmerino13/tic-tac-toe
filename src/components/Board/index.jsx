@@ -137,7 +137,8 @@ class Board extends Component {
           defaultSize={ size }
           onSizeChange={ this.handleSizeChange }
           onStart={ this.handleGameStart }
-          readonly={ playing } />
+          readonly={ playing }
+          { ...scores } />
         <Squares
           columns={ size }
           squares={ squares }

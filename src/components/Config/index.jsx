@@ -2,7 +2,7 @@ import React from 'react';
 
 import { ConfigWrapper } from './config.styled';
 
-const Config = ({ defaultSize, onSizeChange, onStart, readonly }) => {
+const Config = ({ defaultSize, onSizeChange, onStart, readonly, draw, z, x }) => {
   return (
     <ConfigWrapper>
       <label>
@@ -15,10 +15,15 @@ const Config = ({ defaultSize, onSizeChange, onStart, readonly }) => {
           disabled={ readonly } />
       </label>
       <label>
-        <button className={ `btn ${ readonly ? '' : 'btn btn-play' }` } onClick={onStart} disabled={ readonly }>Play now</button>
-      </label>
-      <label>
-        <button className={ `btn ${ readonly ? '' : 'btn btn-restart' }` } onClick={() => console.log('game started')} disabled={ readonly }>Restart</button>
+        <button className={ `btn ${ readonly ? '' : 'btn btn-play' }` } onClick={onStart} disabled={ readonly }>
+        {
+          draw > 0
+          || z > 0
+          || x > 0
+          ? 'Play again'
+          : 'Play now'
+        }
+        </button>
       </label>
     </ConfigWrapper>
   );

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { chain } from 'lodash'
+import { chain, chunk } from 'lodash';
 
-import { parseArrayVertically, parseArrayDiagonally } from '../utils';
+import { parseArrayVertically, diagonally } from '../utils';
 import { BoardWrapper } from './board.styled';
 import Scores from '../Scores';
 import Config from '../Config';
@@ -31,9 +31,13 @@ class Board extends Component {
         .map(group => group.join(''))
         .value(),
       vertical = parseArrayVertically({ array: squares, size }).map(group => group.join('')),
-      diagonallyTopLeft = parseArrayDiagonally({ array: horizontal }),
-      diagonallyBottomTop = parseArrayDiagonally({ array: horizontal, bottomToTop: true }),
-      results = [].concat(horizontal).concat(vertical);
+      diagonallyTopLeft = diagonally({ array: chunk(squares, size), size }),
+      diagonallyBottomTop = diagonally({ array: chunk(squares, size), size, bottomToTop: true }),
+      results = []
+        .concat(horizontal)
+        .concat(vertical)
+        .concat(diagonallyTopLeft)
+        .concat(diagonallyBottomTop);
 
     results.forEach(path => {
       if (path.includes(winPathX)) {
@@ -55,16 +59,13 @@ class Board extends Component {
 
     scores[winner] += 1;
 
-    console.log('winner', winner);
-    console.log('whoWon', whoWon);
-
     this.setState({
       playing: false,
       whoWon: winner,
       scores
     });
 
-    //this.restart();
+    this.restart();
   }
 
   restart() {

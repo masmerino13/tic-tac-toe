@@ -1,4 +1,29 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+
+const winner = keyframes`
+  {
+    0%{
+        background-color: #fdfdfd;
+        color: #000;
+        }
+    25%{
+        background: #8bc34a;
+        color: #fff;
+        }
+    40%{
+        background-color: #fdfdfd;
+        color: #000;
+        }
+    60%{
+        background: #8bc34a;
+        color: #fff;
+        }
+    100%{
+        background: #fdfdfd;
+        color: #000;
+        }
+  }
+`;
 
 const ScoresWrapper = styled.div`
   display: flex;
@@ -10,6 +35,10 @@ const ScoresWrapper = styled.div`
     .label {
       color: #0959e4;
     }
+  }
+
+  .winner {
+    animation: ${ winner } 1s 1 0s linear;
   }
 `;
 

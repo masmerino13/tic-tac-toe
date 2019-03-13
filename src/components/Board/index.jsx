@@ -64,8 +64,6 @@ class Board extends Component {
       whoWon: winner,
       scores
     });
-
-    this.restart();
   }
 
   restart() {
@@ -124,6 +122,7 @@ class Board extends Component {
       size,
       squares,
       whoIsNext,
+      whoWon,
       playing,
       scores
     } = this.state;
@@ -131,6 +130,7 @@ class Board extends Component {
     return (
       <BoardWrapper>
         <Scores
+          whoWon={ whoWon }
           whoIsNext={ whoIsNext }
           { ...scores } />
         <Config
